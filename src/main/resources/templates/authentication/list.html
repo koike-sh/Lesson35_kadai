@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>認証システム</title>
+    <link rel="stylesheet" th:href="@{/css/authentication/list.css}">
+</head>
+<body>
+    <h1>認証システム</h1>
+    <table>
+		<tr>
+		    <th>社員番号</th>
+		    <th>パスワード</th>
+		    <th>権限</th>
+		    <th>従業員テーブルのID	</th>
+		</tr>
+		<tr th:each="authentication : ${authenticationlist}">
+		    <td th:text="${authentication.code}"></td>
+		    <td th:text="${authentication.password}"></td>
+		    <td th:text="${authentication.role}"></td>
+		    <td th:text="${authentication.employee}"></td>
+		</tr>
+	</table>
+</body>
+</html>
