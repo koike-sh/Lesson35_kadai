@@ -12,7 +12,7 @@
         <input type="hidden" id="id" name="id" th:value="${employee.id}" th:text="${employee.id}">
         <br>
         <label for="code">社員番号</label>
-        <input type="text" th:field="${employee.authentication.code}">
+        <input type="text" th:field="${employee.authentication.code}" readonly="readonly">
         <br>
         <label for="name">氏名</label>
         <input type="text" th:field="${employee.name}">
