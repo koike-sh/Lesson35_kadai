@@ -69,6 +69,7 @@ public class EmployeeController {
     	employee.setCreatedAt(LocalDateTime.now());
     	employee.setUpdatedAt(LocalDateTime.now());
     	employee.setDeleteFlag(0);
+       	employee.getAuthentication().setPassword(passwordEncoder.encode(employee.getAuthentication().getPassword()));
 
         // Employee登録
         service.saveEmployee(employee);
