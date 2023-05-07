@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import lombok.Data;
 
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.Data;
 
@@ -44,4 +46,5 @@ public class Authentication {
     @OneToOne
     @JoinColumn(name="employeeId", referencedColumnName="id")
     private Employee employee;
+
 }

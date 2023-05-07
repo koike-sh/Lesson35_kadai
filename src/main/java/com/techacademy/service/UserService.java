@@ -14,11 +14,11 @@ import com.techacademy.repository.EmployeeRepository;
 import com.techacademy.repository.AuthenticationRepository;
 
 @Service
-public class EmployeeService {
+public class UserService {
     private final EmployeeRepository employeeRepository;
     private final AuthenticationRepository authenticationRepository;
 
-    public EmployeeService(EmployeeRepository employeerepository, AuthenticationRepository authenticationrepository) {
+    public UserService(EmployeeRepository employeerepository, AuthenticationRepository authenticationrepository) {
         this.employeeRepository = employeerepository;
         this.authenticationRepository = authenticationrepository;
     }
@@ -42,7 +42,7 @@ public class EmployeeService {
     }
 
     /** Authenticationを1件検索して返す */
-    public com.techacademy.entity.Authentication getAuthentication(Integer id) {
+    public com.techacademy.entity.Authentication getAuthentication(String id) {
         return authenticationRepository.findById(id).get();
     }
 

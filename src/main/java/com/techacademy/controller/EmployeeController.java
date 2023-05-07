@@ -3,6 +3,8 @@ package com.techacademy.controller;
 import java.time.LocalDateTime;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,16 +16,19 @@ import org.springframework.web.bind.annotation.PostMapping; // 追加
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techacademy.entity.Employee; // 追加
-import com.techacademy.service.EmployeeService;
+import com.techacademy.service.UserService;
 
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
-    private final EmployeeService service;
+    private final UserService service;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public EmployeeController(EmployeeService service) {
+    public EmployeeController(UserService service) {
         this.service = service;
     }
+
 
     /** 一覧画面を表示 */
     @GetMapping("/list")
@@ -85,12 +90,14 @@ public class EmployeeController {
 
     /** Employee更新処理 */
     @PostMapping("/update/{id}/")
-    public String postEmployee(Employee employee) {
-       	employee.setCreatedAt(LocalDateTime.now());
-    	employee.setUpdatedAt(LocalDateTime.now());
-    	employee.setDeleteFlag(0);
+    public String postEmployee(@PathVariable("id") Integer id, Employee employee) {
+       	Employee emp = service.getEmployee(id);
+       	emp.setName(employee.getName());
+       	emp.getAuthentication().setPassword(passwordEncoder.encode(employee.getAuthentication().getPassword()));
+       	emp.getAuthentication().setRole(employee.getAuthentication().getRole());
+       	emp.setUpdatedAt(LocalDateTime.now());
         // Employee登録
-        service.saveEmployee(employee);
+        service.saveEmployee(emp);
         // 一覧画面にリダイレクト
         return "redirect:/employee/list";
     }
@@ -102,8 +109,7 @@ public class EmployeeController {
         emp.setDeleteFlag(1);
         // Employee登録
         service.saveEmployee(emp);
-        // 一覧画面に遷移
+        // 一覧画面にリダイレクト
         return "redirect:/employee/list";
     }
-
 }
