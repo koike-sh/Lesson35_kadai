@@ -50,7 +50,7 @@ public class EmployeeController {
         Employee emp = service.getEmployee(id);
         model.addAttribute("employee", emp);
         // 全件検索結果をModelに登録
-        // model.addAttribute("employeelist", service.getEmployeeList());
+//         model.addAttribute("employeelist", service.getEmployeeList());
 
         // employee/detail.htmlに画面遷移
         return "employee/detail";

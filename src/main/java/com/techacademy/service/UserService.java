@@ -7,20 +7,24 @@ import java.util.Set; // 追加
 
 import javax.transaction.Transactional;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Service;
+
+import com.techacademy.entity.DailyReport;
 import com.techacademy.entity.Employee;
 import com.techacademy.repository.EmployeeRepository;
 import com.techacademy.repository.AuthenticationRepository;
+import com.techacademy.repository.DailyReportRepository;
 
 @Service
 public class UserService {
     private final EmployeeRepository employeeRepository;
     private final AuthenticationRepository authenticationRepository;
+    private final DailyReportRepository dailyreportRepository;
 
-    public UserService(EmployeeRepository employeerepository, AuthenticationRepository authenticationrepository) {
+    public UserService(EmployeeRepository employeerepository, AuthenticationRepository authenticationrepository, DailyReportRepository dailyreportrepository) {
         this.employeeRepository = employeerepository;
         this.authenticationRepository = authenticationrepository;
+        this.dailyreportRepository = dailyreportrepository;
     }
 
     /** 全件を検索して返す */
@@ -29,7 +33,7 @@ public class UserService {
         return employeeRepository.findAll();
     }
 
-    /** レコード数を返す */
+    /** Employeeエンティティのレコード数を返す */
     public int getEmployeeSize() {
         List<Employee> employee = getEmployeeList();
         int employeesize = employee.size();
@@ -51,7 +55,6 @@ public class UserService {
     public Employee saveEmployee(Employee employee) {
         com.techacademy.entity.Authentication auth = employee.getAuthentication();
         auth.setEmployee(employee);
-
         return employeeRepository.save(employee);
     }
 
@@ -62,6 +65,4 @@ public class UserService {
             employeeRepository.deleteById(id);
         }
     }
-
-
 }
