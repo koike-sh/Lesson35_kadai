@@ -24,13 +24,11 @@ public class TopPageController {
         // 全件検索結果をModelに登録
         model.addAttribute("dailyreportlist", service.getDailyReportList(userdetail.getUser()));
 
-//@SpringSecurity
-//@Authentication Principal
         // レコード数をModelに登録
         model.addAttribute("dailyreportsize", service.getDailyReportSize(userdetail.getUser()));
 
         // /toppage.htmlに画面遷移
-        return "/toppage.html";
+        return "toppage";
     }
 
 
